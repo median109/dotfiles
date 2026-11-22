@@ -5,7 +5,7 @@ vim.opt.number = true          -- 显示行号
 vim.opt.relativenumber = true  -- 相对行号
 vim.opt.expandtab = false       -- Tab 转空格
 vim.opt.shiftwidth = 2         -- 缩进宽度
-vim.opt.clipboard = "unnamed" -- 系统剪贴板"unnamedplus"为增加，"unnamed"为主选区，""关闭
+vim.opt.clipboard = "" -- 系统剪贴板"unnamedplus"为增加，"unnamed"为主选区，""关闭
 vim.opt.list = true -- 显示不可见字符
 vim.opt.showmode = false -- 关闭自带的模式显示
 vim.opt.laststatus = 3 -- 状态栏全局常驻显示
@@ -13,12 +13,14 @@ vim.opt.cursorline = true -- 开启当前光标所在行高亮
 vim.opt.termguicolors = true   -- 24 位真彩色支持
 vim.opt.undofile = true -- 持久化撤销树
 -- 键位映射
+-- n:普通模式,i:插入模式,x:可视模式,s:选择模式(gh,gH,g<C-H>,可视模式下按<C-g>切换),o:等待操作模式,v:可视+选择模式(相当于x和s),c:命令行模式,t:终端模式,l,!:插入+命令行(相当于i和c)。默认为n
 vim.g.mapleader = " "  -- 设置空格为 Leader 键
 vim.keymap.set("n", "<leader>w", ":w<CR>", { desc = "保存文件" })
 vim.keymap.set("n", "<leader>q", ":q<CR>", { desc = "退出" })
 vim.keymap.set("n", "<leader>e", ":e!<CR>", { desc = "强制重载" })
-vim.keymap.set("n", "<leader>z", "za")
+vim.keymap.set("n", "<leader>z", "za",{ desc = "切换折叠块"})
 -- 快速移动行
+vim.keymap.set("n", "<leader>c", '"+',{ desc = "到(从)系统剪贴板寄存器"})
 vim.keymap.set("v", "J", ":m '>+1<CR>gv") -- '>表示选区的最后一行,gv表示恢复上次选区,=表示自动缩进
 vim.keymap.set("v", "K", ":m '<-2<CR>gv")
 vim.keymap.set("n", "<leader>u", function()
@@ -26,7 +28,6 @@ vim.keymap.set("n", "<leader>u", function()
   vim.cmd.Undotree()
 end, { desc = "显示撤销树"})
 vim.keymap.set({ "n", "x", "o" }, "s", function()
-  -- require("flash").setup()
   require("flash").jump()
 end, { desc = "快速跳转" })
 
@@ -54,10 +55,10 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
-if vim.tbl_flatten then --为nvim-colorizer.lua插件，兼容赋值tbl_flatten
-  vim.tbl_flatten = function(t)
-    return vim.iter(t):flatten():totable()
-  end
+--为nvim-colorizer.lua插件，兼容赋值tbl_flatten
+---@diagnostic disable-next-line: duplicate-set-field
+vim.tbl_flatten = function(t)
+  return vim.iter(t):flatten():totable()
 end
 
 
