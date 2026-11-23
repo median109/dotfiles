@@ -1,0 +1,133 @@
+/* ====== 编辑模式下，单元格不能选择，可三击选定或借助shift建，分段选择 ====== */
+
+/* ====== 阅读视图容器处理 ====== */
+
+.markdown-reading-view .markdown-preview-sizer {
+
+  /* Obsidian阅读视图特有的包装元素 */
+
+  transform: none !important; 
+
+  /* 清除Obsidian默认应用的变换属性，防止干扰粘性定位 */
+
+}
+
+
+
+/* ====== 强制创建新层叠上下文 ====== */
+
+.markdown-preview-view table,                 /* 实时预览模式下的表格元素 */
+
+.markdown-source-view.mod-cm6 .cm-table-widget, /* 源码模式下的表格容器组件 */
+
+.markdown-reading-view table {                /* 阅读视图下的表格元素 */  
+
+  transform: translateZ(0);
+
+  /* 通过3D变换触发GPU加速，创建独立渲染层 */
+
+  isolation: isolate;
+
+  /* 隔离元素的层叠上下文，防止z-index冲突 */
+
+  contain: style layout paint;
+
+  /* 现代CSS优化属性：限制浏览器重绘范围，提升滚动性能 */
+
+}
+
+
+
+/* ====== 表头行基础样式 ====== */
+
+.markdown-preview-view thead tr,             /* 实时预览表头行 */
+
+.markdown-source-view.mod-cm6 thead tr,      /* 源码模式表头行 */
+
+.markdown-reading-view thead tr {            /* 阅读视图表头行 */
+
+  background-color: rgba(52, 152, 219, 0.05) !important;
+
+  /* 设置基础半透明蓝色背景（RGBA透明度5%） */
+
+}
+
+
+
+/* ====== 蓝色毛玻璃表头核心样式 ====== */
+
+.markdown-preview-view thead tr th,          /* 实时预览表头单元格 */
+
+.markdown-source-view.mod-cm6 .cm-table-widget thead tr th, /* 源码模式表头单元格 */
+
+.markdown-reading-view thead tr th {         /* 阅读视图表头单元格 */
+
+  position: sticky !important;   
+
+  /* 使用粘性定位实现冻结效果 */
+
+  top: -32px !important;             
+
+  /* 固定到容器顶部 这样浮动条上面还有一行，可把0换成-30px,调整位置*/
+
+  z-index: 500 !important;       
+
+  /* 设置足够高的层级，确保覆盖下方内容 */
+
+  
+
+  background: rgba(33, 150, 243, 0.15) !important; 
+
+  /* 叠加更高浓度的蓝色层（透明度15%）*/
+
+  
+
+  box-shadow: 0 1px 3px rgba(3, 102, 214, 0.09) !important; 
+
+  /* 添加浅蓝色投影增加层次感 */
+
+  
+
+  backdrop-filter:               /* 现代CSS滤镜组合 */
+
+    blur(8px)                    /* 高斯模糊创造毛玻璃效果 */
+
+    brightness(1.18)             /* 亮度补偿（避免模糊导致变暗） */
+
+    hue-rotate(195deg);          /* 色相旋转增强蓝色调 */
+
+}
+
+
+
+/* ====== 阅读视图滚动容器修复 ====== */
+
+.markdown-reading-view .markdown-preview-section {
+
+  overflow: visible !important; 
+
+  /* 解除外层容器的滚动限制（Obsidian默认设置为auto） */
+
+}
+
+
+
+.markdown-reading-view .markdown-preview-section > div {
+
+  overflow: visible !important; 
+
+  /* 解除内层div的滚动限制，确保表格能正常溢出 */
+
+}
+
+
+
+/* ====== 源码模式容器修复 ====== */
+
+.markdown-source-view.mod-cm6 .cm-table-widget {
+
+  overflow: visible !important;
+
+  /* 允许源码模式下的表格溢出容器 */
+
+}

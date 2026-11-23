@@ -1,0 +1,4 @@
+/* 设置编辑模式下光标所在行的背景色 */
+.cm-active.cm-line {
+    background-color: rgba(121, 121, 120, 0.2); /* 替换为你喜欢的颜色或 rgba 值 */
+}

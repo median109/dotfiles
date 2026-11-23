@@ -1,0 +1,138 @@
+/* ==========================================
+   Obsidian 标题美化 CSS（解决重叠与定位偏移）
+   ========================================== */
+
+/* 1. 标题父容器定位 */
+.markdown-rendered h1, .HyperMD-header-1,
+.markdown-rendered h2, .HyperMD-header-2,
+.markdown-rendered h3, .HyperMD-header-3,
+.markdown-rendered h4, .HyperMD-header-4,
+.markdown-rendered h5, .HyperMD-header-5,
+.markdown-rendered h6, .HyperMD-header-6 {
+  position: relative !important;
+}
+
+/* 2. 左侧圆角颜色块（伪元素 ::before） */
+.markdown-rendered h1::before, .HyperMD-header-1::before,
+.markdown-rendered h2::before, .HyperMD-header-2::before,
+.markdown-rendered h3::before, .HyperMD-header-3::before,
+.markdown-rendered h4::before, .HyperMD-header-4::before,
+.markdown-rendered h5::before, .HyperMD-header-5::before,
+.markdown-rendered h6::before, .HyperMD-header-6::before {
+  content: "";
+  position: absolute;
+  left: -7px;               /* 向左偏移，避开展开/收起箭头 */
+  top: 50%;
+  transform: translateY(-55%);/* 垂直对齐调整 */
+  height: 0.9em;             /* 适当缩短色块高度 */
+  border-radius: 3px;        /* 柔和圆角 */
+  z-index: 1;
+}
+
+/* 3. 颜色块左下角的精致小标识（伪元素 ::after） */
+.markdown-rendered h1::after, .HyperMD-header-1::after,
+.markdown-rendered h2::after, .HyperMD-header-2::after,
+.markdown-rendered h3::after, .HyperMD-header-3::after,
+.markdown-rendered h4::after, .HyperMD-header-4::after,
+.markdown-rendered h5::after, .HyperMD-header-5::after,
+.markdown-rendered h6::after, .HyperMD-header-6::after {
+  position: absolute;
+  left: -25px;               /* 标识放在颜色块的左侧/左下方 */
+  bottom: 0px;               /* 紧贴底部 */
+  font-size: 13px;            /* 精确控制为极小字号 */
+  font-weight: 500;          /* 降低字重，避免过粗 */
+  line-height: 1;
+  transform: scale(0.85);    /* 进一步细化缩放，防止字体发粗 */
+  transform-origin: right bottom;
+  opacity: 0.7;              /* 适度降低透明度，更显精致 */
+  font-family: var(--font-monospace, monospace);
+  z-index: 1;
+}
+
+/* ==========================================
+   2. 编辑模式（Live Preview）：单独调整色块与角标位置
+   ========================================== */
+.HyperMD-header-1::before,
+.HyperMD-header-2::before,
+.HyperMD-header-3::before,
+.HyperMD-header-4::before,
+.HyperMD-header-5::before,
+.HyperMD-header-6::before {
+  /* 修改这里的数值来单独将编辑模式的色块【往下推】 */
+  top: 65% !important;       /* 如果依然偏上，可以继续增大（如 62%、65%） */
+  transform: translateY(-50%) !important;
+}
+
+.HyperMD-header-1::after,
+.HyperMD-header-2::after,
+.HyperMD-header-3::after,
+.HyperMD-header-4::after,
+.HyperMD-header-5::after,
+.HyperMD-header-6::after {
+  /* 如果编辑模式下的角标标识也偏高/偏低，在这里单独调整 */
+  bottom: 2px !important;    /* 增大该值往上推，减小或设为负值往下拉 */
+}
+
+/* ------------------------------------------
+   H1 至 H6 各自的颜色、色块宽度与标识内容
+   ------------------------------------------ */
+
+/* H1 */
+.markdown-rendered h1::before, .HyperMD-header-1::before {
+  width: 5px;
+  background-color: #FF6B6B;
+}
+.markdown-rendered h1::after, .HyperMD-header-1::after {
+  content: "H1";
+  color: #FF6B6B;
+}
+
+/* H2 */
+.markdown-rendered h2::before, .HyperMD-header-2::before {
+  width: 4px;
+  background-color: #4ECDC4;
+}
+.markdown-rendered h2::after, .HyperMD-header-2::after {
+  content: "H2";
+  color: #4ECDC4;
+}
+
+/* H3 */
+.markdown-rendered h3::before, .HyperMD-header-3::before {
+  width: 4px;
+  background-color: #6a92bb;
+}
+.markdown-rendered h3::after, .HyperMD-header-3::after {
+  content: "H3";
+  color: #6a92bb;
+}
+
+/* H4 */
+.markdown-rendered h4::before, .HyperMD-header-4::before {
+  width: 3px;
+  background-color: #F7B731;
+}
+.markdown-rendered h4::after, .HyperMD-header-4::after {
+  content: "H4";
+  color: #F7B731;
+}
+
+/* H5 */
+.markdown-rendered h5::before, .HyperMD-header-5::before {
+  width: 2px;
+  background-color: #A55EEA;
+}
+.markdown-rendered h5::after, .HyperMD-header-5::after {
+  content: "H5";
+  color: #A55EEA;
+}
+
+/* H6 */
+.markdown-rendered h6::before, .HyperMD-header-6::before {
+  width: 2px;
+  background-color: #26DE81;
+}
+.markdown-rendered h6::after, .HyperMD-header-6::after {
+  content: "H6";
+  color: #26DE81;
+}
