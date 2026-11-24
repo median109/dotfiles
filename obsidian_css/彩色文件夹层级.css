@@ -1,0 +1,35 @@
+/* === Obsidian 文件夹多层级彩色引导线（原生变量版，无重影） === */
+
+body {
+  --nav-indentation-guide-width: 0.5px; /* 统一控制所有层级线条粗细 */
+}
+
+/* 鼠标悬停时微微变粗 */
+.nav-folder:hover > .nav-folder-children {
+  border-left-width: 1.5px !important;
+}
+
+/* 第 1 层子文件夹 */
+.nav-files-container > div > .nav-folder > .nav-folder-children {
+  --nav-indentation-guide-color: #ff6b6b; /* 珊瑚红 */
+}
+
+/* 第 2 层子文件夹 */
+.nav-files-container > div > .nav-folder > .nav-folder-children > .nav-folder > .nav-folder-children {
+  --nav-indentation-guide-color: #feca57; /* 暖黄色 */
+}
+
+/* 第 3 层子文件夹 */
+.nav-files-container > div > .nav-folder > .nav-folder-children > .nav-folder > .nav-folder-children > .nav-folder > .nav-folder-children {
+  --nav-indentation-guide-color: #1dd1a1; /* 薄荷绿 */
+}
+
+/* 第 4 层子文件夹 */
+.nav-files-container > div > .nav-folder > .nav-folder-children > .nav-folder > .nav-folder-children > .nav-folder > .nav-folder-children > .nav-folder > .nav-folder-children {
+  --nav-indentation-guide-color: #54a0ff; /* 天空蓝 */
+}
+
+/* 第 5 层及更深层子文件夹 */
+.nav-files-container > div > .nav-folder > .nav-folder-children > .nav-folder > .nav-folder-children > .nav-folder > .nav-folder-children > .nav-folder > .nav-folder-children > .nav-folder > .nav-folder-children {
+  --nav-indentation-guide-color: #a29bfe; /* 薰衣草紫 */
+}
